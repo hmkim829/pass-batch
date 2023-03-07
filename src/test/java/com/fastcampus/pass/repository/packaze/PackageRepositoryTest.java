@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,9 +34,26 @@ class PackageRepositoryTest {
     }
 
     @Test
-    void test_findByCreadAtAfter() {
+    void test_findByCreatedAtAfter() {
 
         LocalDateTime dateTime = LocalDateTime.now().minusMinutes(1);
+
         PackageEntity packageEntity0 = new PackageEntity();
+        packageEntity0.setPackageName("학생 전용 3개월");
+        packageEntity0.setPeriod(90);
+        packageRepository.save(packageEntity0);
+
+        PackageEntity packageEntity1 = new PackageEntity();
+        packageEntity1.setPackageName("학생 전용 6개월");
+        packageEntity1.setPeriod(180);
+        packageRepository.save(packageEntity1);
+
+        final List<PackageEntity> pakageEntities = packageRepository.findByCreatedAtAfter(
+                dateTime,
+                PageRequest.of(0, 1, Sort.by("packageSeq").descending())
+        );
+
+        assertEquals(1, pakageEntities.size());
+        assertEquals(packageEntity1.getPackageSeq(), pakageEntities.get(0).getPackageSeq());
     }
 }
