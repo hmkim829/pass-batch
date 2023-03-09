@@ -1,5 +1,6 @@
 package com.fastcampus.pass.job.pass;
 
+import com.fastcampus.pass.config.JpaConfig;
 import com.fastcampus.pass.config.TestBatchConfig;
 import com.fastcampus.pass.repository.pass.PassEntity;
 import com.fastcampus.pass.repository.pass.PassRepository;
@@ -27,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBatchTest
 @SpringBootTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes = {ExpirepassesJobConfig.class, TestBatchConfig.class})
+@ContextConfiguration(classes = {ExpirepassesJobConfig.class, TestBatchConfig.class, JpaConfig.class})
 class ExpirepassesJobConfigTest {
 
     @Autowired
@@ -60,7 +61,7 @@ class ExpirepassesJobConfigTest {
             PassEntity passEntity = new PassEntity();
             passEntity.setPackageSeq(1);
             passEntity.setUserId("A" + 1000000 + i);
-            passEntity.setStatus(PassStatus.IN_PROGRESS);
+            passEntity.setStatus(PassStatus.PROGRESSED);
             passEntity.setRemainingCount(random.nextInt(11));
             passEntity.setStartedAt(now.minusDays(60));
             passEntity.setEndedAt(now.minusDays(1));
