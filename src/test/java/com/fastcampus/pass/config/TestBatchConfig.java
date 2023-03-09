@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaAuditing
 @EnableAutoConfiguration
 @EnableBatchProcessing
 @EntityScan("com.fastcampus.pass.repository")
