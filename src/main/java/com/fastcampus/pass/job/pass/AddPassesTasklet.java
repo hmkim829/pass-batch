@@ -8,6 +8,7 @@ import com.fastcampus.pass.repository.pass.PassModelMapper;
 import com.fastcampus.pass.repository.pass.PassRepository;
 import com.fastcampus.pass.repository.user.UserGroupMappingEntity;
 import com.fastcampus.pass.repository.user.UserGroupMappingRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -22,17 +23,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class AddPassesTasklet implements Tasklet {
 
     private final PassRepository passRepository;
     private final BulkPassRepository bulkPassRepository;
     private final UserGroupMappingRepository userGroupMappingRepository;
-
-    public AddPassesTasklet(PassRepository passRepository, BulkPassRepository bulkPassRepository, UserGroupMappingRepository userGroupMappingRepository) {
-        this.passRepository = passRepository;
-        this.bulkPassRepository = bulkPassRepository;
-        this.userGroupMappingRepository = userGroupMappingRepository;
-    }
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext){
