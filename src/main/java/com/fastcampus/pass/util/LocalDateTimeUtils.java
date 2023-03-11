@@ -1,4 +1,4 @@
-package com.fastcampus.pass.utils;
+package com.fastcampus.pass.util;
 
 import com.vladmihalcea.hibernate.util.StringUtils;
 
